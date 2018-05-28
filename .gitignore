@@ -84,3 +84,8 @@ src/latex/
 .vagrant/
 Qt*-linux*.tar.*
 
+parts/ 
+snap/.snapcraft/ 
+*.snap 
+ 
+snap/snap/\.snapcraft/
