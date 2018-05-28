@@ -89,3 +89,4 @@ snap/.snapcraft/
 *.snap 
  
 snap/snap/\.snapcraft/
+*.bz2
