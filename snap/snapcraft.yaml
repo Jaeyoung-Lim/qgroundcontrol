@@ -12,8 +12,8 @@ parts:
   qgroundcontrol:
     plugin: qmake
     qt-version: qt5
-    project-files: [../../../../qgroundcontrol.pro]
-    source: .
+    project-files: [../../../qgroundcontrol.pro]
+    source: src/
     build-packages:
       - build-essential
       - qt5-default
