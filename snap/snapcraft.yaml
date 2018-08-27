@@ -27,8 +27,8 @@ parts:
       - qtpositioning5-dev
       - libqt5svg5-dev
       - libqt5texttospeech5-dev
-      - libqt5multimedia5
-      - libqt5multimedia5-plugins
+      - qtmultimedia5-dev
+      - libqt5serialport5-dev
       - libqt5charts5-dev
 
     stage-packages:
