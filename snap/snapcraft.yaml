@@ -10,6 +10,78 @@ grade: devel # must be 'stable' to release into candidate/stable channels
 confinement: devmode # use 'strict' once you have the right plugs and slots
 
 parts:
-  my-part:
-    # See 'snapcraft plugins'
-    plugin: nil
+  qgroundcontrol: 
+    plugin: qmake
+    project-files: [../../../qgroundcontrol.pro]
+    source: src/
+    build-packages:
+      - speech-dispatcher
+      - libudev-dev
+      - libsdl2-dev
+    after: [qt]
+
+  qt:
+      plugin: qtbuilder
+      qt-version: '5.11.0'
+      qt-source-git: https://code.qt.io/qt/qt5.git
+      qt-submodules: ['qtbase', 'qtimageformats', 'qtmultimedia', 'qtlocation', 'qtsvg', 'qtserialport', 'qtcharts']
+      environment:
+        - CC: gcc-7
+        - CXX: g++-7
+        - QMAKE_CC: gcc-7
+        - QMAKE_CXX: g++-7
+      build-packages:
+        - libasound2-dev
+        - libdbusmenu-glib-dev
+        - libffi-dev
+        - liblzma-dev
+        - libpulse-dev
+        - libssl-dev
+        - libx11-xcb-dev
+        - libxcb-icccm4-dev
+        - libxcb-image0-dev
+        - libxcb-keysyms1-dev
+        - libxcb-randr0-dev
+        - libxcb-render-util0-dev
+        - libxcb-sync-dev
+        - libxcb-util0-dev
+        - libxcb-xfixes0-dev
+        - libxcb1-dev
+        - libxrender-dev
+      configflags:
+        - -prefix
+        - $SNAPCRAFT_STAGE
+        - -release
+        - -force-debug-info
+        - -opensource
+        - -confirm-license
+        - -qt-zlib
+        - -qt-libpng
+        - -qt-libjpeg
+        - -qt-freetype
+        - -qt-harfbuzz
+        - -qt-pcre
+        - -qt-xcb
+        - -qt-xkbcommon-x11
+        - -static
+        - -dbus-runtime
+        - -openssl-linked
+        - -nomake
+        - examples
+        - -nomake
+        - tests
+      after:
+        - libxkbcommon
+      prime: [-./*]
+
+  libxkbcommon:
+    source: https://github.com/xkbcommon/libxkbcommon.git
+    source-depth: 1
+    plugin: autotools
+    build-packages:
+      - xutils-dev
+      - bison
+      - python-xcbgen
+    configflags:
+      - --disable-x11
+    prime: [-./*]
